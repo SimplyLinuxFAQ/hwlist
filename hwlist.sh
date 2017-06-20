@@ -2,11 +2,11 @@
 ##---------- Author : Sadashiva Murthy M ----------------------------------------------------##
 ##---------- Blog site : http://simplylinuxfaq.blogspot.in ----------------------------------##
 ##---------- Github page : https://github.com/SimplyLinuxFAQ --------------------------------##
-##---------- Purpose : To quickly & interactively find out hardware  details in a server-----##
+##---------- Purpose : To quickly & interactively find hardware details in linux systems.----##
 ##---------- Tested on : RHEL7/6/5/, SLES12/11, Ubuntu14, Mint16, Boss6(Debian) variants.----##
-##---------- Updated version : 6 (modified 20th-June-2017) interactive & user-friendly.------##
+##---------- Updated version : v1.6 (modified on 20th-June-2017) ----------------------------##
 ##-----NOTE: This script requires root privileges, otherwise you could run the script -------##
-##---- as a sudo user who has got root privileges. ------------------------------------------##
+##---- as a sudo user who got root privileges. ----------------------------------------------##
 ##----------- "sudo /bin/bash <ScriptName> <arguments>" -------------------------------------##
 
 S="************************************"
@@ -545,12 +545,12 @@ case "$1" in
 	 health_check
 	;;  
 	--help|--info)
-	 echo -e "To print System (OS) details: ------------------- $0 --system OR --os"
+	 echo -e "To print system (OS) details: ------------------- $0 --system OR --os"
 	 echo -e "To print memory details (RAM) : ----------------- $0 --memory OR --RAM OR --ram"
 	 echo -e "To print CPU (processor) details: --------------- $0 --CPU OR --cpu"
 	 echo -e "To print disk (hard disk/drive) details: -------- $0 --disk"
 	 echo -e "To print network hardware details: -------------- $0 --network"
-	 echo -e "To print PCI devices: --------------------------- $0 --pci"
+	 echo -e "To print PCI device details: -------------------- $0 --pci"
 	 echo -e "To get complete system hardware details : ------- $0 --all OR --details"
 	 echo -e "To get system health status : ------------------- $0 --health"
 	 echo -e "To dump complete system details to a file : ----- $0 --dump <PathForDumpFile>"

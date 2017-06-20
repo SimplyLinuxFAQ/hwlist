@@ -1,9 +1,10 @@
 #!/bin/bash
 ##---------- Author : Sadashiva Murthy M ----------------------------------------------------##
-##---------- Published on : http://simplylinuxfaq.blogspot.in -------------------------------##
-##---------- Purpose : To quickly & interactively find out hardware  details in a server------##
+##---------- Blog site : http://simplylinuxfaq.blogspot.in ----------------------------------##
+##---------- Github page : https://github.com/SimplyLinuxFAQ --------------------------------##
+##---------- Purpose : To quickly & interactively find out hardware  details in a server-----##
 ##---------- Tested on : RHEL7/6/5/, SLES12/11, Ubuntu14, Mint16, Boss6(Debian) variants.----##
-##---------- Updated version : 7 (modified 20th-June-2017) interactive & user-friendly.------##
+##---------- Updated version : 6 (modified 20th-June-2017) interactive & user-friendly.------##
 ##-----NOTE: This script requires root privileges, otherwise you could run the script -------##
 ##---- as a sudo user who has got root privileges. ------------------------------------------##
 ##----------- "sudo /bin/bash <ScriptName> <arguments>" -------------------------------------##
@@ -302,10 +303,7 @@ fi
 health_check()
 {
 MOUNT=$(mount|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -u -t' ' -k1,2)
-#FS_USAGE=$(df -PTh|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -u -t' ' -k1,6)
 FS_USAGE=$(df -PTh|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -k6n)
-
-#IUSAGE=$(df -PThi|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -u -t' ' -k1,6)
 IUSAGE=$(df -PThi|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -k6n)
 
 echo -e "$S" 
@@ -313,23 +311,23 @@ echo -e "\tSystem Health Status"
 echo -e "$S" 
 
 #--------Check for any read-only file systems--------#
-echo -e "\nChecking For Read-only File System"
+echo -e "\nChecking For Read-only File System[s]"
 echo -e "$D"
-echo "$MOUNT"|grep -w \(ro\) && echo -e "\n.....Read Only file system[s] found"|| echo -e ".....No read-only file systems found. "
+echo "$MOUNT"|grep -w \(ro\) && echo -e "\n.....Read Only file system[s] found"|| echo -e ".....No read-only file system[s] found. "
 
 
 #--------Check for currently mounted file systems--------#
-echo -e "\n\nChecking For Currently Mounted File Systems"
+echo -e "\n\nChecking For Currently Mounted File System[s]"
 echo -e "$D$D"
 echo "$MOUNT"|column -t
 
 
 #--------Check disk usage on all mounted file systems--------#
-echo -e "\n\nChecking For Disk Usage On Mounted File Systems"
+echo -e "\n\nChecking For Disk Usage On Mounted File System[s]"
 echo -e "$D$D"
 echo -e "( 0-90% = OK/HEALTHY, 90-95% = WARNING, 95-100% = CRITICAL )"
 echo -e "$D$D"
-echo -e "Mounted File System Utilization (Percentage Used):\n" 
+echo -e "Mounted File System[s] Utilization (Percentage Used):\n" 
 
 echo "$FS_USAGE"|awk '{print $1 " "$7}' > /tmp/s1.out
 echo "$FS_USAGE"|awk '{print $6}'|sed -e 's/%//g' > /tmp/s2.out

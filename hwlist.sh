@@ -400,7 +400,7 @@ do
   {
   if [ $i -ge 95 ];
   then
-    echo -e $i"% $GCOLOR" >> /tmp/s3.out;
+    echo -e $i"% $CCOLOR" >> /tmp/s3.out;
   elif [[ $i -ge 90 && $i -lt 95 ]];
   then
     echo -e $i"% $WCOLOR" >> /tmp/s3.out;

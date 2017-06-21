@@ -125,7 +125,7 @@ Active Network Interface(s)		: 1
 	 -------------------------------------
 	 Interface Name 		 : eth0
 	 IP Address 			 : 192.168.10.100
-	 Hardware Address 		 : 00:0c:29:c4:1c:5a
+	 Hardware Address 		 : XX:XX:XX:XX:XX:XX
 	 Driver Module Name 		 : e1000
 	 Driver Version 		 : 7.3.21-k8-NAPI
 	 Firmware Version 		 :

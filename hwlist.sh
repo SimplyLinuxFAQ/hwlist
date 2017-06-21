@@ -11,7 +11,7 @@
 
 S="************************************"
 D="-------------------------------------"
-NOCOLOR="n"
+COLOR="y"
 
 #------Checking the availability of dmidecode package------#
 if [ ! -x /usr/sbin/dmidecode ];
@@ -306,6 +306,21 @@ MOUNT=$(mount|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -u -t' ' -k1,2)
 FS_USAGE=$(df -PTh|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -k6n)
 IUSAGE=$(df -PThi|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -k6n)
 
+if [ $COLOR == y ]
+then
+{
+ GCOLOR="\e[47;32m ------ OK/HEALTHY \e[0m"
+ WCOLOR="\e[43;31m ------ WARNING \e[0m"
+ CCOLOR="\e[47;31m ------ CRITICAL \e[0m"
+}
+else
+{
+ GCOLOR=" ------ OK/HEALTHY "
+ WCOLOR=" ------ WARNING "
+ CCOLOR=" ------ CRITICAL "
+}
+fi
+
 echo -e "$S" 
 echo -e "\tSystem Health Status" 
 echo -e "$S" 
@@ -333,40 +348,20 @@ echo "$FS_USAGE"|awk '{print $1 " "$7}' > /tmp/s1.out
 echo "$FS_USAGE"|awk '{print $6}'|sed -e 's/%//g' > /tmp/s2.out
 > /tmp/s3.out
 
-if [ $NOCOLOR == y ]
-then
+for i in $(cat /tmp/s2.out);
+do
 {
- for i in $(cat /tmp/s2.out);
- do
- {
-   if [ $i -ge 95 ];
-    then
-      echo -e $i"% ------ CRITICAL" >> /tmp/s3.out;
-    elif [[ $i -ge 90 && $i -lt 95 ]];
-    then
-      echo -e $i"% ------ WARNING" >> /tmp/s3.out; 
-    else
-      echo -e $i"% ------ OK/HEALTHY" >> /tmp/s3.out;
-   fi
- } done
-}
-else
-{
- for i in $(cat /tmp/s2.out);
- do
- {
-   if [ $i -ge 95 ];
-    then
-      echo -e $i"%" "\e[47;31m ------ CRITICAL \e[0m" >> /tmp/s3.out;
-    elif [[ $i -ge 90 && $i -lt 95 ]];
-    then
-      echo -e $i"%" "\e[43;31m ------ WARNING \e[0m" >> /tmp/s3.out; 
-    else
-      echo -e $i"%" "\e[47;32m ------ OK/HEALTHY \e[0m" >> /tmp/s3.out;
-   fi
- } done
-}
-fi
+  if [ $i -ge 95 ];
+   then
+     echo -e $i"% $CCOLOR" >> /tmp/s3.out;
+   elif [[ $i -ge 90 && $i -lt 95 ]];
+   then
+     echo -e $i"% $WCOLOR" >> /tmp/s3.out; 
+   else
+     echo -e $i"% $GCOLOR" >> /tmp/s3.out;
+  fi
+} 
+done
 paste -d"\t" /tmp/s1.out /tmp/s3.out|column -t
 
 #--------Check for any zombie processes--------#
@@ -398,52 +393,25 @@ echo "$IUSAGE"|awk '{print $1" "$7}' > /tmp/s1.out
 echo "$IUSAGE"|awk '{print $6}'|sed -e 's/%//g' > /tmp/s2.out
 > /tmp/s3.out
 
-if [ $NOCOLOR == y ]
-then
-{
- for i in $(cat /tmp/s2.out);
- do
+for i in $(cat /tmp/s2.out);
+do
   if [[ $i = *[[:digit:]]* ]];
   then
   {
   if [ $i -ge 95 ];
   then
-     echo -e $i"%------ CRITICAL" >> /tmp/s3.out;
+    echo -e $i"% $GCOLOR" >> /tmp/s3.out;
   elif [[ $i -ge 90 && $i -lt 95 ]];
   then
-     echo -e $i"% ------ WARNING" >> /tmp/s3.out;
+    echo -e $i"% $WCOLOR" >> /tmp/s3.out;
   else
-   echo -e $i"% ------ OK/HEALTHY" >> /tmp/s3.out;
+    echo -e $i"% $GCOLOR" >> /tmp/s3.out;
   fi
   }
   else
-   echo -e $i"% ------ OK/HEALTHY (Inode Percentage details not available)" >> /tmp/s3.out
+    echo -e $i"% (Inode Percentage details not available)" >> /tmp/s3.out
   fi
- done
-}
-else
-{
- for i in $(cat /tmp/s2.out);
- do
-  if [[ $i = *[[:digit:]]* ]];
-  then
-  {
-  if [ $i -ge 95 ];
-  then
-     echo -e $i"%" "\e[47;31m ------ CRITICAL \e[0m" >> /tmp/s3.out;
-  elif [[ $i -ge 90 && $i -lt 95 ]];
-  then
-     echo -e $i"%" "\e[43;31m ------ WARNING \e[0m" >> /tmp/s3.out;
-   else
-    echo -e $i"%" "\e[47;32m ------ OK/HEALTHY \e[0m" >> /tmp/s3.out;
-  fi
-  }
-  else
-   echo -e $i"%" "\e[47;32m ------ OK/HEALTHY \e[0m (Inode Percentage details not available)" >> /tmp/s3.out
-  fi
- done
-}
-fi
+done
 paste -d"\t" /tmp/s1.out /tmp/s3.out|column -t
 
 #--------Check for SWAP Utilization--------#
@@ -531,8 +499,8 @@ case "$1" in
 	  echo -e "Usage: $0 --dump <PathForDumpFile>"
 	  exit 1
 	fi
-	 NOCOLOR="y"
-     export NOCOLOR
+	 COLOR="n"
+         export COLOR
 	 main_prog > $2
 	 ;;
 	--os|--system)

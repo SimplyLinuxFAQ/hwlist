@@ -5,39 +5,39 @@
 
 		 Operating System Details
 	 ************************************
-Hostname					          : ansible-host.example.com
-Operating System			      : Red Hat Enterprise Linux Server release 6.8 (Santiago)
-Kernel Version				      : 2.6.32-696.3.2.el6.x86_64
-OS Architecture				      : 64 Bit OS
-System Uptime 				      : up by 4 minutes
-Current System Date & Time 	: Wed 21 Jun 2017 02:30:44 AM EDT
+Hostname				 : ansible-host.example.com
+Operating System			 : Red Hat Enterprise Linux Server release 6.8 (Santiago)
+Kernel Version				 : 2.6.32-696.3.2.el6.x86_64
+OS Architecture				 : 64 Bit OS
+System Uptime 				 : up by 4 minutes
+Current System Date & Time 		 : Wed 21 Jun 2017 02:30:44 AM EDT
 
 		 System Hardware Details
 	 ************************************
-Product Name 				        : VMware Virtual Platform
-Manufacturer 	        		  : VMware, Inc.
-System Serial Number 	   	  : VMware-56 4d 65 f1 ef bb ab 16-3a eb 64 8a 12 c4 1c 5a
-System Version 				      : None
+Product Name 				 : VMware Virtual Platform
+Manufacturer 				 : VMware, Inc.
+System Serial Number 			 : VMware-56 4d 65 f1 ef bb ab 16-3a eb 64 8a 12 c4 1c 5a
+System Version 				 : None
 
 		 System Motherboard Details
 	 ************************************
-Manufacturer 				        : Intel Corporation
-Product Name 				        : 440BX Desktop Reference Platform
-Version 					          : None
-Serial Number 				      : None
+Manufacturer 				 : Intel Corporation
+Product Name 				 : 440BX Desktop Reference Platform
+Version 				 : None
+Serial Number 				 : None
 
 		 System BIOS Details
 	 ************************************
-BIOS Vendor 				        : Phoenix Technologies LTD
-BIOS Version 				        : 6.00
-BIOS Release Date 			    : 05/20/2014
+BIOS Vendor 				 : Phoenix Technologies LTD
+BIOS Version 				 : 6.00
+BIOS Release Date 			 : 05/20/2014
 
 		System Memory Details (RAM)
 	 ************************************
-Total RAM (/proc/meminfo)		    : 1862.58 MB OR 1.81893 GB
-Error Detecting Method 			    :  None
-Error Correcting Capabilities 	: 
-No. Of Memory Module(s) Found	  : 1
+Total RAM (/proc/meminfo)		: 1862.58 MB OR 1.81893 GB
+Error Detecting Method 			:  None
+Error Correcting Capabilities 		: 
+No. Of Memory Module(s) Found		: 1
 
 	  Memory Module(s) Detected 			
 	 ----------------------------------
@@ -45,64 +45,64 @@ No. Of Memory Module(s) Found	  : 1
 
 		 Hardware Specification Of Each Memory Module(s) 
 		 -------------------------------------
-		Size			      : 2048 MB
-		Form Factor		  : DIMM
-		Locator			    : RAM slot #0
-		Bank Locator	  : RAM slot #0
-		Type			      : DRAM
-		Type Detail		  : EDO
-		Speed			      : Unknown
-		Manufacturer	  : Not Specified
-		Serial Number	  : Not Specified
-		Part Number		  : Not Specified
+		Size			: 2048 MB
+		Form Factor		: DIMM
+		Locator			: RAM slot #0
+		Bank Locator		: RAM slot #0
+		Type			: DRAM
+		Type Detail		: EDO
+		Speed			: Unknown
+		Manufacturer		: Not Specified
+		Serial Number		: Not Specified
+		Part Number		: Not Specified
 
 		System Processor Details (CPU)
 	 ****************************************
-Manufacturer					        : GenuineIntel
-Model Name						        : Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
-CPU Family						        : 6
-CPU Stepping					        : 4
-No. Of Processor(s)	    			: 1
-No. of Core(s) per processor	: 1
+Manufacturer					: GenuineIntel
+Model Name					: Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
+CPU Family					: 6
+CPU Stepping					: 4
+No. Of Processor(s)				: 1
+No. of Core(s) per processor			: 1
 
 	Details Of Each Processor (Based On dmidecode)		
 	 -------------------------------------
 	Socket Designation	: CPU socket #0
-	Type				        : Central Processor
-	Family				      : Unknown
-	Version				      : Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
-	Voltage				      : 3.3 V
-	Max Speed			      : 30000 MHz
-	Current Speed		    : 2200 MHz
-	Serial Number		    : Not Specified
-	Asset Tag			      : Not Specified
-	Part Number			    : Not Specified
+	Type			: Central Processor
+	Family			: Unknown
+	Version			: Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
+	Voltage			: 3.3 V
+	Max Speed		: 30000 MHz
+	Current Speed		: 2200 MHz
+	Serial Number		: Not Specified
+	Asset Tag		: Not Specified
+	Part Number		: Not Specified
 
 		 Storage Device Details 			
 	 ************************************
 --------------------------------------------------------------------------
 Device type 		 Logical Name 			 Size
 --------------------------------------------------------------------------
-Disk				    /dev/sda			    21.5GB
-Disk				    /dev/sdb			    1073MB
+Disk				/dev/sda			21.5GB
+Disk				/dev/sdb			1073MB
 
 		 Details Of Each Hard Drive(s) (local) Found
 	--------------------------------------------------------------------------
 			 Disk : sda
 	--------------------------------------------------------------------------
-	 Disk Model 			        : VMware Virtual S
-	 Disk Vendor 			        : VMware,
-	 Disk Serial Number 	    :
-	 Drive Firmware Version   :
-	 Device Path 			        : pci-0000:00:10.0-scsi-0:0:0:0 -> ../../sda
+	 Disk Model 			 : VMware Virtual S
+	 Disk Vendor 			 : VMware,
+	 Disk Serial Number 		 :
+	 Drive Firmware Version  	 :
+	 Device Path 			 : pci-0000:00:10.0-scsi-0:0:0:0 -> ../../sda
 	--------------------------------------------------------------------------
 			 Disk : sdb
 	--------------------------------------------------------------------------
-	 Disk Model 			        : VMware Virtual S
-	 Disk Vendor 			        : VMware,
-	 Disk Serial Number 	    :
-	 Drive Firmware Version   :
-	 Device Path 			        : pci-0000:00:10.0-scsi-0:0:1:0 -> ../../sdb
+	 Disk Model 			 : VMware Virtual S
+	 Disk Vendor 			 : VMware,
+	 Disk Serial Number 		 :
+	 Drive Firmware Version		 :
+	 Device Path 			 : pci-0000:00:10.0-scsi-0:0:1:0 -> ../../sdb
 	
 		 PCI Controller(s) Found 			
 	 ************************************
@@ -116,21 +116,21 @@ VGA        			: VMware SVGA II Adapter
 
 		 Network Hardware Info
 	 ************************************
-Ethernet Controller Name 		  : Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
+Ethernet Controller Name 		: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
 Total Network Interface(s)		: 10
 Active Network Interface(s)		: 1
 
 
 	 Details Of Active Network Interface(s) Found
 	 -------------------------------------
-	 Interface Name 		  : eth0
-	 IP Address 			    : 192.168.10.100
-	 Hardware Address 		: 00:0c:29:c4:1c:5a
-	 Driver Module Name 	: e1000
-	 Driver Version 		  : 7.3.21-k8-NAPI
-	 Firmware Version 		:
-	 Speed 				 	      : 1000Mb/s
-	 Duplex Mode 			    : Full
+	 Interface Name 		 : eth0
+	 IP Address 			 : 192.168.10.100
+	 Hardware Address 		 : 00:0c:29:c4:1c:5a
+	 Driver Module Name 		 : e1000
+	 Driver Version 		 : 7.3.21-k8-NAPI
+	 Firmware Version 		 :
+	 Speed 			 	 : 1000Mb/s
+	 Duplex Mode 			 : Full
 
 ************************************
 	System Health Status

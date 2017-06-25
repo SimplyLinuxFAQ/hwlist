@@ -4,7 +4,7 @@
 ##---------- Github page : https://github.com/SimplyLinuxFAQ --------------------------------##
 ##---------- Purpose : To quickly & interactively find hardware details in linux systems.----##
 ##---------- Tested on : RHEL7/6/5/, SLES12/11, Ubuntu14, Mint16, Boss6(Debian) variants.----##
-##---------- Updated version : v1.6 (modified on 20th-June-2017) ----------------------------##
+##---------- Updated version : v1.6 (modified on 25th of June 2017) -------------------------##
 ##-----NOTE: This script requires root privileges, otherwise you could run the script -------##
 ##---- as a sudo user who got root privileges. ----------------------------------------------##
 ##----------- "sudo /bin/bash <ScriptName> <arguments>" -------------------------------------##
@@ -12,35 +12,35 @@
 S="************************************"
 D="-------------------------------------"
 COLOR="y"
+PRECHECK="p"
 
-#------Checking the availability of dmidecode package------#
-if [ ! -x /usr/sbin/dmidecode ];
-then
-    echo -e "Error : Either \"dmidecode\" command not available OR \"dmidecode\" package is not properly installed. Please make sure this package is installed and working properly!\n\n"
-    exit 1
-fi
+#------Checking the availability of dmidecode|smartmontools|sysstat packages------#
+[ ! -x /usr/sbin/dmidecode ] && { 
+echo -e "Error : Either \"dmidecode\" command not available OR \"dmidecode\" package is not properly installed. Please make sure this package is installed and working properly!\n"
+PRECHECK="f" 
+} 
+[ ! -x /usr/sbin/smartctl ] && {  
+echo -e "Error : Either \"smartctl\" command not available OR \"smartmontools\" package is not properly installed. Please make sure this package is installed and working properly!\n"
+PRECHECK="f" 
+}
+[ ! -x /usr/bin/mpstat ] && {
+echo -e "Error : Either \"mpstat\" command not available OR \"sysstat\" package is not properly installed. Please make sure this package is installed and working properly!\n"
+PRECHECK="f" 
+}
 
-#------Checking the availability of smartmontools package------#
-if [ ! -x /usr/sbin/smartctl ];
-then
-   echo -e "Error : Either \"smartctl\" command not available OR \"smartmontools\" package is not properly installed. Please make sure this package is installed and working properly!\n\n"
-    exit 1
-fi
+[[ $PRECHECK == f ]] && { 
+echo -e "\"hwlist.sh\" script would terminate now. Bye!!!\n"
+exit 1
+}
 
-#------Checking the availability of sysstat package------#
-if [ ! -x /usr/bin/mpstat ];
-then
-   echo -e "Error : Either \"mpstat\" command not available OR \"sysstat\" package is not properly installed. Please make sure this package is installed and working properly!\n\n"
-    exit 1
-fi
-
-#------Creating functions for easy usage------#
 #------Print welcome message at the top------#
 head_fun()
 {	
-echo -e "\n**********************************************************************************************************" 
-echo -e "<>------------<> Welcome to hwlist script which fetches hardware details from your system <>------------<>" 
-echo -e "**********************************************************************************************************"
+echo -e "\n***********************************************************************************************************" 
+echo -e "<>------------<> Welcome to hwlist script which fetches hardware details from your system. <>------------<>"
+echo -e "<>------------<> This is the output produced by the script when ran with \"--all\" or when   <>------------<>"
+echo -e "<>------------<> dumped using \"--dump\" option.                                             <>------------<>"
+echo -e "***********************************************************************************************************"
 }
 
 #------Print hostname, OS architecture and kernel version-----#
@@ -48,14 +48,10 @@ os_fun()
 {
 echo -e "\n\t\t Operating System Details" 
 echo -e "\t $S"
-printf "Hostname\t\t\t\t :" $(hostname -f > /dev/null 2>&1) && printf " $(hostname -f)" || printf " $(hostname -s)"
 
-if [ -e /usr/bin/lsb_release ]
-then
-	echo -e "\nOperating System\t\t\t :" $(lsb_release -d|awk -F: '{print $2}'|sed -e 's/^[ \t]*//') 
-else
-	echo -e "\nOperating System\t\t\t :" $(cat /etc/system-release) 
-fi
+hostname -f > /dev/null 2>&1 && printf "Hostname\t\t\t\t : $(hostname -f)" || printf "Hostname\t\t\t\t : $(hostname -s)"
+
+[ -x /usr/bin/lsb_release ] &&  echo -e "\nOperating System\t\t\t :" $(lsb_release -d|awk -F: '{print $2}'|sed -e 's/^[ \t]*//')  || echo -e "\nOperating System\t\t\t :" $(cat /etc/system-release)
 
 echo -e "Kernel Version\t\t\t\t :" $(uname -r) 
 
@@ -125,7 +121,7 @@ else
 }
 fi
 
-echo -e "\n\tDetails Of Each Processor (Based On dmidecode)\t\t"
+echo -e "\n\tDetails Of Each Processor[s] (Based On dmidecode)\t\t"
 echo -e "\t $D" 
 
 COUNT=$(grep -c processor /proc/cpuinfo)
@@ -202,7 +198,7 @@ echo -e "$D$D"
 echo -e "Device type \t\t Logical Name \t\t\t Size" 
 echo -e "$D$D" 
 
-TDISK=$(/sbin/fdisk -l 2> /dev/null|grep Disk|grep bytes|egrep -v "loop|mapper|md")
+TDISK=$(/sbin/fdisk -l 2> /dev/null|grep Disk|grep bytes|egrep -v "loop|mapper|md|ram")
 LDISK=$(echo "$TDISK"|awk '{print $2}'|sed 's/\://'|awk -F/ '{print $3}'|sort)
 
 service multipathd status > /dev/null 2>&1 && {
@@ -266,17 +262,16 @@ fi
 #-------Fetch network hardware details--------#
 net_fun()
 {
-ANET=$(ip a|grep ^[0-9]|egrep -v "lo|virbr|vlan|sit|vnet"|grep -v DOWN|awk -F: '{print $2}'|sed 's/^[ \t]*//')
+ANET=$(ip a|grep ^[0-9]|egrep -v "lo|virbr|vlan|sit|vnet|pan"|grep -v DOWN|awk -F: '{print $2}'|sed 's/^[ \t]*//')
 
 echo -e "\n\t\t Network Hardware Info"  
 echo -e "\t $S"  
 echo -e "Ethernet Controller Name \t\t:" $(lspci|grep Ethernet|awk -F: '{print $3}'|uniq|sed 's/^[ /t]*//')
-echo -e "Total Network Interface(s)\t\t:" $(ip a|grep ^[0-9]|egrep -v -c "lo|virbr|vlan|sit|vnet") 
-echo -e "Active Network Interface(s)\t\t:" $(echo "$ANET"|grep -v '^$'|wc -l) 
-echo -e "\n" 
-echo -e "\t Details Of Active Network Interface(s) Found" 
-echo -e "\t $D" 
+echo -e "Total Network Interface(s)\t\t:" $(ip a|grep ^[0-9]|awk -F: '{print $2}'|sed 's/ //g'|egrep -vc "lo|virbr|vlan|sit|vnet|pan") 
+echo -e "Active Network Interface(s)\t\t:" $(echo "$ANET"|grep -vc '^$') 
 
+echo -e "\n\t Details Of Active Network Interface(s) Found" 
+echo -e "\t $D" 
 if [ "$ANET" != "" ]
 then
 {
@@ -284,7 +279,7 @@ then
   do
   {
       echo -e "\t Interface Name \t\t :" $i 
-      echo -e "\t IP Address \t\t\t :" $(ip a s $i|grep -w 'inet' 2>&1 > /dev/null && ip a s $i|grep -w 'inet'|awk '{print $2}'|sed 's/[/]24//' || echo "\"Not Set\"") 
+      echo -e "\t IP Address (primary) \t\t :" $(ip a s $i|grep -w inet 2>&1 > /dev/null && ip a s $i|grep -w inet|grep -w brd|awk '{print $2}'|sed 's/[/]24//' || echo "\"Not Set\"") 
       echo -e "\t Hardware Address \t\t :" $(ip a s $i|grep 'ether'|awk '{print $2}') 
       echo -e "\t Driver Module Name \t\t :" $(ethtool -i $i|grep driver|awk '{print $2}') 
       echo -e "\t Driver Version \t\t :" $(ethtool -i $i|grep -A1 -i driver|grep version|awk '{print $2}') 
@@ -295,7 +290,7 @@ then
   done
 }
 else
-  echo -e "\t No network interfaces active!"
+  echo -e "\t No network interfaces active!\n"
 fi  
 }
 
@@ -303,8 +298,8 @@ fi
 health_check()
 {
 MOUNT=$(mount|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -u -t' ' -k1,2)
-FS_USAGE=$(df -PTh|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -k6n)
-IUSAGE=$(df -PThi|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -k6n)
+FS_USAGE=$(df -PTh|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -k6n|awk '!seen[$1]++')
+IUSAGE=$(df -PThi|egrep -iw "ext4|ext3|xfs|gfs|gfs2|btrfs"|sort -k6n|awk '!seen[$1]++')
 
 if [ $COLOR == y ]
 then

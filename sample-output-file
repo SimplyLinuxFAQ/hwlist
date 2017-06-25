@@ -1,7 +1,8 @@
-
-**********************************************************************************************************
-<>------------<> Welcome to hwlist script which fetches hardware details from your system <>------------<>
-**********************************************************************************************************
+***********************************************************************************************************
+<>------------<> Welcome to hwlist script which fetches hardware details from your system. <>------------<>
+<>------------<> This is the output produced by the script when ran with "--all" or when   <>------------<>
+<>------------<> dumped using "--dump" option.                                             <>------------<>
+***********************************************************************************************************
 
 		 Operating System Details
 	 ************************************
@@ -10,7 +11,7 @@ Operating System			 : Red Hat Enterprise Linux Server release 6.8 (Santiago)
 Kernel Version				 : 2.6.32-696.3.2.el6.x86_64
 OS Architecture				 : 64 Bit OS
 System Uptime 				 : up by 4 minutes
-Current System Date & Time 		 : Wed 21 Jun 2017 02:30:44 AM EDT
+Current System Date & Time 		 : Sun 25 Jun 2017 05:01:09 AM EDT
 
 		 System Hardware Details
 	 ************************************
@@ -58,14 +59,14 @@ No. Of Memory Module(s) Found		: 1
 
 		System Processor Details (CPU)
 	 ****************************************
-Manufacturer					: GenuineIntel
-Model Name					: Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
-CPU Family					: 6
-CPU Stepping					: 4
-No. Of Processor(s)				: 1
-No. of Core(s) per processor			: 1
+Manufacturer				: GenuineIntel
+Model Name				: Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
+CPU Family				: 6
+CPU Stepping				: 4
+No. Of Processor(s)			: 1
+No. of Core(s) per processor		: 1
 
-	Details Of Each Processor (Based On dmidecode)		
+	Details Of Each Processor[s] (Based On dmidecode)		
 	 -------------------------------------
 	Socket Designation	: CPU socket #0
 	Type			: Central Processor
@@ -83,8 +84,9 @@ No. of Core(s) per processor			: 1
 --------------------------------------------------------------------------
 Device type 		 Logical Name 			 Size
 --------------------------------------------------------------------------
-Disk				/dev/sda			21.5GB
-Disk				/dev/sdb			1073MB
+Disk			/dev/sda			21.5GB
+Disk			/dev/sdb			1073MB
+
 
 		 Details Of Each Hard Drive(s) (local) Found
 	--------------------------------------------------------------------------
@@ -93,7 +95,7 @@ Disk				/dev/sdb			1073MB
 	 Disk Model 			 : VMware Virtual S
 	 Disk Vendor 			 : VMware,
 	 Disk Serial Number 		 :
-	 Drive Firmware Version  	 :
+	 Drive Firmware Version 	 :
 	 Device Path 			 : pci-0000:00:10.0-scsi-0:0:0:0 -> ../../sda
 	--------------------------------------------------------------------------
 			 Disk : sdb
@@ -101,9 +103,10 @@ Disk				/dev/sdb			1073MB
 	 Disk Model 			 : VMware Virtual S
 	 Disk Vendor 			 : VMware,
 	 Disk Serial Number 		 :
-	 Drive Firmware Version		 :
+	 Drive Firmware Version 	 :
 	 Device Path 			 : pci-0000:00:10.0-scsi-0:0:1:0 -> ../../sdb
-	
+
+
 		 PCI Controller(s) Found 			
 	 ************************************
 Ethernet   			: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
@@ -118,18 +121,26 @@ VGA        			: VMware SVGA II Adapter
 	 ************************************
 Ethernet Controller Name 		: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
 Total Network Interface(s)		: 10
-Active Network Interface(s)		: 1
-
+Active Network Interface(s)		: 2
 
 	 Details Of Active Network Interface(s) Found
 	 -------------------------------------
 	 Interface Name 		 : eth0
-	 IP Address 			 : 192.168.10.100
-	 Hardware Address 		 : XX:XX:XX:XX:XX:XX
+	 IP Address (primary) 		 : 192.168.10.100
+	 Hardware Address 		 : 00:0c:29:c4:1c:5a
 	 Driver Module Name 		 : e1000
 	 Driver Version 		 : 7.3.21-k8-NAPI
 	 Firmware Version 		 :
-	 Speed 			 	 : 1000Mb/s
+	 Speed 				 : 1000Mb/s
+	 Duplex Mode 			 : Full
+
+	 Interface Name 		 : eth1
+	 IP Address (primary) 		 : 192.168.10.110
+	 Hardware Address 		 : 00:0c:29:c4:1c:b4
+	 Driver Module Name 		 : e1000
+	 Driver Version 		 : 7.3.21-k8-NAPI
+	 Firmware Version 		 :
+	 Speed 				 : 1000Mb/s
 	 Duplex Mode 			 : Full
 
 ************************************
@@ -159,14 +170,14 @@ Checking For Disk Usage On Mounted File System[s]
 --------------------------------------------------------------------------
 Mounted File System[s] Utilization (Percentage Used):
 
-/dev/mapper/cryptdevice    /forcryptdevice  1%   ------  OK/HEALTHY
-/dev/mapper/vg1-homelv     /home            1%   ------  OK/HEALTHY
-/dev/mapper/extra-extralv  /var/log         3%   ------  OK/HEALTHY
-/dev/mapper/vg1-tmplv      /tmp             7%   ------  OK/HEALTHY
-/dev/mapper/datavg-datalv  /data            8%   ------  OK/HEALTHY
-/dev/mapper/vg1-varlv      /var             12%  ------  OK/HEALTHY
-/dev/sda1                  /boot            17%  ------  OK/HEALTHY
-/dev/mapper/vg1-rootlv     /                91%  ------  WARNING
+/dev/mapper/cryptdevice    /forcryptdevice  1%      ------  OK/HEALTHY  
+/dev/mapper/vg1-homelv     /home            1%      ------  OK/HEALTHY  
+/dev/mapper/extra-extralv  /var/log         3%      ------  OK/HEALTHY  
+/dev/mapper/vg1-tmplv      /tmp             7%      ------  OK/HEALTHY  
+/dev/mapper/datavg-datalv  /data            8%      ------  OK/HEALTHY  
+/dev/mapper/vg1-varlv      /var             12%     ------  OK/HEALTHY  
+/dev/sda1                  /boot            17%     ------  OK/HEALTHY  
+/dev/mapper/vg1-rootlv     /                91%     ------  WARNING     
 
 
 Checking For Zombie Processes
@@ -180,14 +191,14 @@ Checking For INode Usage
 --------------------------------------------------------------------------
 INode Utilization (Percentage Used):
 
-/dev/mapper/cryptdevice    /forcryptdevice  1%   ------  OK/HEALTHY
-/dev/mapper/datavg-datalv  /data            1%   ------  OK/HEALTHY
-/dev/mapper/extra-extralv  /var/log         1%   ------  OK/HEALTHY
-/dev/mapper/vg1-homelv     /home            1%   ------  OK/HEALTHY
-/dev/sda1                  /boot            1%   ------  OK/HEALTHY
-/dev/mapper/vg1-varlv      /var             6%   ------  OK/HEALTHY
-/dev/mapper/vg1-tmplv      /tmp             9%   ------  OK/HEALTHY
-/dev/mapper/vg1-rootlv     /                29%  ------  OK/HEALTHY
+/dev/mapper/cryptdevice    /forcryptdevice  1%      ------  OK/HEALTHY  
+/dev/mapper/datavg-datalv  /data            1%      ------  OK/HEALTHY  
+/dev/mapper/extra-extralv  /var/log         1%      ------  OK/HEALTHY  
+/dev/mapper/vg1-homelv     /home            1%      ------  OK/HEALTHY  
+/dev/sda1                  /boot            1%      ------  OK/HEALTHY  
+/dev/mapper/vg1-varlv      /var             6%      ------  OK/HEALTHY  
+/dev/mapper/vg1-tmplv      /tmp             9%      ------  OK/HEALTHY  
+/dev/mapper/vg1-rootlv     /                29%     ------  OK/HEALTHY  
 
 
 Checking SWAP Details
@@ -201,20 +212,20 @@ Checking For Processor Utilization
 
 Current Processor Utilization Summary :
 
-02:30:45 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest   %idle
-02:30:45 AM  all    6.11    0.00   11.25   14.38    0.03    0.08    0.00    0.00   68.15
+05:01:11 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest   %idle
+05:01:11 AM  all    8.07    0.00   11.50   15.50    0.04    0.09    0.00    0.00   64.79
 
 
 Checking For Load Average
 -------------------------------------
-Current Load Average : 0.58, 0.57, 0.26
+Current Load Average : 0.31, 0.49, 0.24
 
 
 Most Recent 3 Reboot Events
 --------------------------------------------------------------------------
-reboot   system boot  2.6.32-696.3.2.e Wed Jun 21 02:27 - 02:30  (00:03)    
-reboot   system boot  2.6.32-696.3.2.e Tue Jun 20 02:06 - 02:30 (1+00:23)   
-reboot   system boot  2.6.32-696.3.2.e Tue Jun 20 01:50 - 02:05  (00:15)    
+reboot   system boot  2.6.32-696.3.2.e Sun Jun 25 04:57 - 05:01  (00:03)    
+reboot   system boot  2.6.32-696.3.2.e Wed Jun 21 02:27 - 05:01 (4+02:34)   
+reboot   system boot  2.6.32-696.3.2.e Tue Jun 20 02:06 - 05:01 (5+02:54)   
 
 
 Most Recent 3 Shutdown Events
@@ -227,15 +238,15 @@ Top 5 Memory Resource Hog Processes
 --------------------------------------------------------------------------
 %MEM %CPU    PID   PPID USER     STAT COMMAND
 
- 1.5  2.0   4643   4642 root     S<s+ /usr/bin/X :0 -auth /root/.serverauth.4626
+ 1.6  2.6   4061   4060 root     S<s+ /usr/bin/X :0 -auth /root/.serverauth.4044
 
- 1.4  0.0   1966      1 root     SLsl /sbin/dmeventd
+ 1.4  2.2   4212      1 root     S    /usr/lib/vmware-tools/sbin64/vmtoolsd -n vmusr --blockFd 3
 
- 1.1  0.9   4783   4717 root     S    nautilus
+ 1.4  0.0   1974      1 root     SLsl /sbin/dmeventd
 
- 1.0  0.3   4826   4717 root     S    python /usr/share/system-config-printer/applet.py
+ 1.0  0.5   4201   4135 root     S    nautilus
 
- 0.9  0.6   4794      1 root     S    /usr/lib/vmware-tools/sbin64/vmtoolsd -n vmusr --blockFd 3
+ 1.0  0.1   4239   4135 root     S    python /usr/share/system-config-printer/applet.py
 
 
 
@@ -243,15 +254,15 @@ Top 5 CPU Resource Hog Processes
 --------------------------------------------------------------------------
 %CPU %MEM    PID   PPID USER     STAT COMMAND
 
- 2.1  0.2   4903      1 root     S<sl /usr/bin/pulseaudio --start
+ 2.6  1.6   4061   4060 root     S<s+ /usr/bin/X :0 -auth /root/.serverauth.4044
 
- 2.0  1.5   4643   4642 root     S<s+ /usr/bin/X :0 -auth /root/.serverauth.4626
+ 2.5  0.0   4578   4526 root     S+   /bin/bash ./hwlist.sh --all
 
- 2.0  0.0   5202   5115 root     S+   /bin/bash ./hwlist.sh --dump /tmp/hardware.out
+ 2.2  1.4   4212      1 root     S    /usr/lib/vmware-tools/sbin64/vmtoolsd -n vmusr --blockFd 3
 
- 1.6  0.6   5113      1 root     Sl   /usr/bin/gnome-terminal -x /bin/sh -c cd '/root/Desktop' && exec $SHELL
+ 1.6  0.2   4414      1 root     S<sl /usr/bin/pulseaudio --start
 
- 0.9  1.1   4783   4717 root     S    nautilus
+ 0.7  0.0   3234      1 root     Ss   crond
 
 NOTE:- If any of the above fields are marked as "blank" or "NONE" or "UNKNOWN" or "Not Available" or "Not Specified" that
 means either there is no value present in the system for these fields, otherwise that value may not be available.

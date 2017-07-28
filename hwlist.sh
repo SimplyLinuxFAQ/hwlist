@@ -4,7 +4,7 @@
 ##---------- Github page : https://github.com/SimplyLinuxFAQ --------------------------------##
 ##---------- Purpose : To quickly & interactively find hardware details in linux systems.----##
 ##---------- Tested on : RHEL7/6/5/, SLES12/11, Ubuntu14, Mint16, Boss6(Debian) variants.----##
-##---------- Updated version : v1.6 (modified on 25th of June 2017) -------------------------##
+##---------- Updated version : v1.7 (modified on 28th of July 2017) -------------------------##
 ##-----NOTE: This script requires root privileges, otherwise you could run the script -------##
 ##---- as a sudo user who got root privileges. ----------------------------------------------##
 ##----------- "sudo /bin/bash <ScriptName> <arguments>" -------------------------------------##
@@ -49,21 +49,21 @@ os_fun()
 echo -e "\n\t\t Operating System Details" 
 echo -e "\t $S"
 
-hostname -f > /dev/null 2>&1 && printf "Hostname\t\t\t\t : $(hostname -f)" || printf "Hostname\t\t\t\t : $(hostname -s)"
+hostname -f &> /dev/null && printf "Hostname\t\t\t\t : $(hostname -f)" || printf "Hostname\t\t\t\t : $(hostname -s)"
 
 [ -x /usr/bin/lsb_release ] &&  echo -e "\nOperating System\t\t\t :" $(lsb_release -d|awk -F: '{print $2}'|sed -e 's/^[ \t]*//')  || echo -e "\nOperating System\t\t\t :" $(cat /etc/system-release)
 
 echo -e "Kernel Version\t\t\t\t :" $(uname -r) 
 
-printf "OS Architecture\t\t\t\t :" $(arch | grep x86_64 2>&1 > /dev/null) && printf " 64 Bit OS\n"  || printf " 32 Bit OS\n"
+printf "OS Architecture\t\t\t\t :"$(arch | grep x86_64 &> /dev/null) && printf " 64 Bit OS\n"  || printf " 32 Bit OS\n"
 
 #--------Print system uptime-------#
 
 UPTIME=$(uptime)
-echo $UPTIME|grep day 2>&1 > /dev/null
+echo $UPTIME|grep day &> /dev/null
 if [ $? != 0 ]
 then
-  echo $UPTIME|grep -w min 2>&1 > /dev/null && echo -e "System Uptime \t\t\t\t : "$(echo $UPTIME|awk '{print $2" by "$3}'|sed -e 's/,.*//g')" minutes"  || echo -e "System Uptime \t\t\t\t : "$(echo $UPTIME|awk '{print $2" by "$3" "$4}'|sed -e 's/,.*//g')" hours" 
+  echo $UPTIME|grep -w min &> /dev/null && echo -e "System Uptime \t\t\t\t : "$(echo $UPTIME|awk '{print $2" by "$3}'|sed -e 's/,.*//g')" minutes"  || echo -e "System Uptime \t\t\t\t : "$(echo $UPTIME|awk '{print $2" by "$3" "$4}'|sed -e 's/,.*//g')" hours" 
 else
   echo -e "System Uptime \t\t\t\t :" $(echo $UPTIME|awk '{print $2" by "$3" "$4" "$5" hours"}'|sed -e 's/,//g') 
 fi
@@ -161,7 +161,7 @@ sed -n -e '/Memory Device/,$p' /tmp/mem.out > /tmp/memory-device.out
 echo -e "\n\t\tSystem Memory Details (RAM)" 
 echo -e "\t $S" 
 
-echo -e "Total RAM (/proc/meminfo)\t\t: "$(grep MemTotal /proc/meminfo|awk '{print $2/1024}') "MB OR" $(grep MemTotal /proc/meminfo|awk '{print $2/1024/1024}') "GB"
+echo -e "Total RAM (/proc/meminfo)\t\t: "$(grep MemTotal /proc/meminfo|awk '{print $2/1024}') "MiB OR" $(grep MemTotal /proc/meminfo|awk '{print $2/1024/1024}') "GiB"
 echo -e "Error Detecting Method \t\t\t: "$(grep -w "Error Detecting Method" /tmp/mem.out|awk -F: '{print $2}')
 echo -e "Error Correcting Capabilities \t\t: "$(grep -w -m1 "Error Correcting Capabilities" /tmp/mem.out|awk -F: '{print $2}')
 echo -e "No. Of Memory Module(s) Found\t\t: "$(grep -w "Installed Size" /tmp/mem.out|grep -vc "Not Installed")
@@ -198,10 +198,10 @@ echo -e "$D$D"
 echo -e "Device type \t\t Logical Name \t\t\t Size" 
 echo -e "$D$D" 
 
-TDISK=$(/sbin/fdisk -l 2> /dev/null|grep Disk|grep bytes|egrep -v "loop|mapper|md|ram")
-LDISK=$(echo "$TDISK"|awk '{print $2}'|sed 's/\://'|awk -F/ '{print $3}'|sort)
+TDISK=$(/sbin/fdisk -l 2> /dev/null|grep Disk|grep bytes|egrep -v "loop|mapper|md|ram"|sed -e 's/[:,]//g')
+LDISK=$(echo "$TDISK"|awk '{print $2}'|awk -F/ '{print $3}'|sort)
 
-service multipathd status > /dev/null 2>&1 && {
+service multipathd status &> /dev/null && {
  MDISKS=$(multipath -l|grep sd[a-z0-9]|awk '{print $(NF-4)}'|sort)
  MFOUND="y"
  MDRIVES=$(multipath -l|grep DISK|awk '{print $1}'|sort)
@@ -211,14 +211,14 @@ if [ $MFOUND == y ]
 then
 {
  for L in $(echo "$LDISK");do
-  echo "$MDISKS"|grep "$L" 2>&1 > /dev/null || echo "$TDISK"|grep "$L"|sed -e 's/://' -e 's/,//'|awk '{print $1"\t\t\t"$2"\t\t\t"$3 $4}'; done
+  echo "$MDISKS"|grep "$L" &> /dev/null || echo "$TDISK"|grep "$L"|awk '{print $1"\t\t\t"$2"\t\t\t"$3 $4}'; done
 
 echo -e "\n\t ****These are multipathed drives***** "
 for M in $(echo "$MDRIVES");do
  echo -e "multipathed \t\t /dev/mapper/$M \t\t $(multipath -l|grep -w "$M" -A1|grep size|awk '{print $1}'|awk -F= '{print $2}')"; done
 }
 else
- echo "$TDISK"|sed -e 's/://' -e 's/,//'|awk '{print $1"\t\t\t"$2"\t\t\t"$3 $4}'
+ echo "$TDISK"|awk '{print $1"\t\t\t"$2"\t\t\t"$3 $4}'
 fi
 
 ##---------Printing each disk details depending on version-----------#
@@ -229,7 +229,7 @@ then
 {
  for L in $(echo "$LDISK");do
   {
-   echo "$MDISKS"|grep "$L" 2>&1 > /dev/null || {
+   echo "$MDISKS"|grep "$L" &> /dev/null || {
      echo -e "\t$D$D"
      echo -e "\t\t\t Disk :" $L
      echo -e "\t$D$D"
@@ -256,42 +256,60 @@ else
   } done
 }
 fi
-
 }
 
 #-------Fetch network hardware details--------#
 net_fun()
 {
-ANET=$(ip a|grep ^[0-9]|egrep -v "lo|virbr|vlan|sit|vnet|pan"|grep -v DOWN|awk -F: '{print $2}'|sed 's/^[ \t]*//')
+ANET=$(ip a|grep ^[0-9]|egrep -v "lo|virbr|vlan|sit|vnet|pan"|grep -v DOWN|awk '{print $2}'|sed 's/://g')
+[ $(ls -A /proc/net/bonding/ 2>/dev/null) ] && SLAVEI=$(cat /proc/net/bonding/bond*|grep "Slave Interface"|awk '{print $3}') || SLAVEI=""
 
 echo -e "\n\t\t Network Hardware Info"  
 echo -e "\t $S"  
 echo -e "Ethernet Controller Name \t\t:" $(lspci|grep Ethernet|awk -F: '{print $3}'|uniq|sed 's/^[ /t]*//')
-echo -e "Total Network Interface(s)\t\t:" $(ip a|grep ^[0-9]|awk -F: '{print $2}'|sed 's/ //g'|egrep -vc "lo|virbr|vlan|sit|vnet|pan") 
+echo -e "Total Network Interface(s)\t\t:" $(ip a|grep ^[0-9]|awk '{print $2}'|egrep -vc "lo|virbr|vlan|sit|vnet|pan") 
 echo -e "Active Network Interface(s)\t\t:" $(echo "$ANET"|grep -vc '^$') 
 
-echo -e "\n\t Details Of Active Network Interface(s) Found" 
-echo -e "\t $D" 
+echo -e "\n\t  Details Of Active Standalone Network Interface(s) Found" 
+echo -e "\t $D"
 if [ "$ANET" != "" ]
 then
 {
   for i in $(echo "$ANET")
   do
   {
-      echo -e "\t Interface Name \t\t :" $i 
-      echo -e "\t IP Address (primary) \t\t :" $(ip a s $i|grep -w inet 2>&1 > /dev/null && ip a s $i|grep -w inet|grep -w brd|awk '{print $2}'|sed 's/[/]24//' || echo "\"Not Set\"") 
-      echo -e "\t Hardware Address \t\t :" $(ip a s $i|grep 'ether'|awk '{print $2}') 
-      echo -e "\t Driver Module Name \t\t :" $(ethtool -i $i|grep driver|awk '{print $2}') 
-      echo -e "\t Driver Version \t\t :" $(ethtool -i $i|grep -A1 -i driver|grep version|awk '{print $2}') 
-      echo -e "\t Firmware Version \t\t :" $(ethtool -i $i|grep firmware|awk '{print $2}') 
-      echo -e "\t Speed \t\t\t\t :" $(ethtool $i|grep Speed|awk '{print $2}') 
-      echo -e "\t Duplex Mode \t\t\t : $(ethtool $i|grep Duplex|awk '{print $2}')\n"
+   echo $i|egrep "bond|team" &> /dev/null && continue
+   echo "$SLAVEI"|grep $i &> /dev/null && continue
+   echo -e "\t Interface Name \t\t :" $i 
+   echo -e "\t IP Address (primary) \t\t :" $(ip a s $i|grep -w inet &> /dev/null && ip a s $i|grep -w inet|grep -w brd|awk '{print $2}'|sed 's/[/]24//' || echo "\"Not Set\"") 
+   echo -e "\t Hardware Address \t\t :" $(cat /sys/class/net/$i/address) 
+   echo -e "\t Driver Module Name \t\t :" $(ethtool -i $i|grep driver|awk '{print $2}') 
+   echo -e "\t Driver Version \t\t :" $(ethtool -i $i|grep ^version|awk '{print $2}')
+   echo -e "\t Firmware Version \t\t :" $(ethtool -i $i|grep ^firmware|awk '{print $2}') 
+   echo -e "\t Speed \t\t\t\t :" $(cat /sys/class/net/$i/speed)"Mb/s" 
+   echo -e "\t Duplex Mode \t\t\t : $(cat /sys/class/net/$i/duplex)\n"
   }
   done
+  
+  echo "$ANET"|egrep "bond|team" &> /dev/null && {
+  echo -e "\t  Network Bonding Config Details"
+  echo -e "\t $D"
+  for BNET in $(ls /proc/net/bonding/*);do
+   DT=$(cat $BNET)
+   echo -e "\t Bonding Interface Name \t :" $(echo $BNET|awk -F/ '{print $NF}')
+   echo -e "\t IP Address (primary) \t\t :" $(ip a s $(echo $BNET|awk -F/ '{print $NF}')|grep -w inet|grep -w brd|awk '{print $2}'|sed 's/[/]24//')
+   echo -e "\t Bonding Mode \t\t\t :" $(echo "$DT"|grep "Bonding Mode"|awk -F: '{print $2}'|sed 's/ //')
+   echo -e "\t Bonding Interface Speed \t :" $(ethtool $(echo $BNET|awk -F/ '{print $NF}')|grep Speed|awk '{print $2}')
+   echo -e "\t Primary Slave \t\t\t :" $(echo "$DT"|grep "Primary Slave"|awk -F: '{print $2}'|sed 's/ //')
+   echo -e "\t Duplex Mode \t\t\t :" $(ethtool $(echo $BNET|awk -F/ '{print $NF}')|grep Duplex|awk '{print $2}')
+   echo -e "\t Slave Interfaces \t\t :" $(echo "$DT"|grep "Slave Interface"|awk -F: '{print $2}'|sed 's/ //')
+   echo -e "\t Currently Active Slave \t :" $(echo "$DT"|grep "Currently Active Slave"|awk -F: '{print $2}'|sed 's/ //')"\n"
+  done
+  }
 }
 else
-  echo -e "\t No network interfaces active!\n"
-fi  
+ echo -e "\t No network interfaces active!\n"
+fi
 }
 
 #----------Simple health check (resource stats)--------------#
@@ -325,12 +343,10 @@ echo -e "\nChecking For Read-only File System[s]"
 echo -e "$D"
 echo "$MOUNT"|grep -w \(ro\) && echo -e "\n.....Read Only file system[s] found"|| echo -e ".....No read-only file system[s] found. "
 
-
 #--------Check for currently mounted file systems--------#
 echo -e "\n\nChecking For Currently Mounted File System[s]"
 echo -e "$D$D"
 echo "$MOUNT"|column -t
-
 
 #--------Check disk usage on all mounted file systems--------#
 echo -e "\n\nChecking For Disk Usage On Mounted File System[s]"
@@ -347,15 +363,15 @@ for i in $(cat /tmp/s2.out);
 do
 {
   if [ $i -ge 95 ];
-   then
-     echo -e $i"% $CCOLOR" >> /tmp/s3.out;
-   elif [[ $i -ge 90 && $i -lt 95 ]];
-   then
-     echo -e $i"% $WCOLOR" >> /tmp/s3.out; 
-   else
-     echo -e $i"% $GCOLOR" >> /tmp/s3.out;
+  then
+    echo -e $i"% $CCOLOR" >> /tmp/s3.out;
+  elif [[ $i -ge 90 && $i -lt 95 ]];
+  then
+    echo -e $i"% $WCOLOR" >> /tmp/s3.out;
+  else
+    echo -e $i"% $GCOLOR" >> /tmp/s3.out;
   fi
-} 
+}
 done
 paste -d"\t" /tmp/s1.out /tmp/s3.out|column -t
 
@@ -412,8 +428,8 @@ paste -d"\t" /tmp/s1.out /tmp/s3.out|column -t
 #--------Check for SWAP Utilization--------#
 echo -e "\n\nChecking SWAP Details"
 echo -e "$D"
-echo -e "Total Swap Memory in MB : "$(grep -w SwapTotal /proc/meminfo|awk '{print $2/1024}')", in GB : "$(grep -w SwapTotal /proc/meminfo|awk '{print $2/1024/1024}')
-echo -e "Swap Free Memory in MB : "$(grep -w SwapFree /proc/meminfo|awk '{print $2/1024}')", in GB : "$(grep -w SwapFree /proc/meminfo|awk '{print $2/1024/1024}')
+echo -e "Total Swap Memory in MiB : "$(grep -w SwapTotal /proc/meminfo|awk '{print $2/1024}')", in GiB : "$(grep -w SwapTotal /proc/meminfo|awk '{print $2/1024/1024}')
+echo -e "Swap Free Memory in MiB : "$(grep -w SwapFree /proc/meminfo|awk '{print $2/1024}')", in GiB : "$(grep -w SwapFree /proc/meminfo|awk '{print $2/1024/1024}')
 
 #--------Check for Processor Utilization (current data)--------#
 echo -e "\n\nChecking For Processor Utilization"
@@ -495,7 +511,7 @@ case "$1" in
 	  exit 1
 	fi
 	 COLOR="n"
-         export COLOR
+     export COLOR
 	 main_prog > $2
 	 ;;
 	--os|--system)

@@ -4,7 +4,7 @@
 ##---------- Github page : https://github.com/SimplyLinuxFAQ --------------------------------##
 ##---------- Purpose : To quickly & interactively find hardware details in linux systems.----##
 ##---------- Tested on : RHEL7/6/5/, SLES12/11, Ubuntu14, Mint16, Boss6(Debian) variants.----##
-##---------- Updated version : v1.7 (modified on 28th of July 2017) -------------------------##
+##---------- Updated version : v1.8 (modified on 21st of August 2017) -----------------------##
 ##-----NOTE: This script requires root privileges, otherwise you could run the script -------##
 ##---- as a sudo user who got root privileges. ----------------------------------------------##
 ##----------- "sudo /bin/bash <ScriptName> <arguments>" -------------------------------------##
@@ -25,11 +25,10 @@ PRECHECK="f"
 }
 [ ! -x /usr/bin/mpstat ] && {
 echo -e "Error : Either \"mpstat\" command not available OR \"sysstat\" package is not properly installed. Please make sure this package is installed and working properly!\n"
-PRECHECK="f" 
+PRECHECK="f"
 }
-
 [[ $PRECHECK == f ]] && { 
-echo -e "\"hwlist.sh\" script would terminate now. Bye!!!\n"
+echo -e "\"$0\" script would terminate now. Bye!!!\n"
 exit 1
 }
 
@@ -39,7 +38,7 @@ head_fun()
 echo -e "\n***********************************************************************************************************" 
 echo -e "<>------------<> Welcome to hwlist script which fetches hardware details from your system. <>------------<>"
 echo -e "<>------------<> This is the output produced by the script when ran with \"--all\" or when   <>------------<>"
-echo -e "<>------------<> dumped using \"--dump\" option.                                             <>------------<>"
+echo -e "<>------------<> dumped using \"--dump\" option, for help \"--help\".                          <>------------<>"
 echo -e "***********************************************************************************************************"
 }
 
@@ -110,19 +109,15 @@ echo -e "CPU Stepping\t\t\t\t:" $(grep "stepping" /proc/cpuinfo|awk -F: '{print 
 
 if [ -e /usr/bin/lscpu ]
 then
-{
-	echo -e "No. Of Processor(s)\t\t\t:" $(lscpu|grep -w "Socket(s):"|awk -F: '{print $2}') 
-	echo -e "No. of Core(s) per processor\t\t:" $(lscpu|grep -w "Core(s) per socket:"|awk -F: '{print $2}') 
-}
+ echo -e "No. Of Processor(s)\t\t\t:" $(lscpu|grep -w ^"CPU(s)"|awk '{print $2}') 
+ echo -e "No. of Core(s) per processor\t\t:" $(lscpu|grep -w "Core(s) per socket:"|awk -F: '{print $2}') 
 else
-{
-	echo -e "No. Of Processor(s) Found\t\t:" $(grep -c processor /proc/cpuinfo) 
-	echo -e "No. of Core(s) per processor\t\t:" $(grep "cpu cores" /proc/cpuinfo|uniq|wc -l) 
-}
+ echo -e "No. Of Processor(s) Found\t\t:" $(grep -c processor /proc/cpuinfo) 
+ echo -e "No. of Core(s) per processor\t\t:" $(grep "cpu cores" /proc/cpuinfo|uniq|wc -l) 
 fi
 
-echo -e "\n\tDetails Of Each Processor[s] (Based On dmidecode)\t\t"
-echo -e "\t $D" 
+echo -e "\n\t Details Of Each Processor[s] (Based On dmidecode)\t\t"
+echo -e "\t$D" 
 
 COUNT=$(grep -c processor /proc/cpuinfo)
 
@@ -156,37 +151,36 @@ done
 #-------Fetch system memory (RAM) details--------#
 mem_fun()
 {
-dmidecode --type memory > /tmp/mem.out
-sed -n -e '/Memory Device/,$p' /tmp/mem.out > /tmp/memory-device.out
-echo -e "\n\t\tSystem Memory Details (RAM)" 
-echo -e "\t $S" 
+DMEMOUT=$(dmidecode --type memory)
+PHYMEM=$(echo "$DMEMOUT"|sed -n -e '/Memory Device/,$p')
+
+echo -e "\n\t\tSystem Memory Details (RAM)"
+echo -e "\t $S"
 
 echo -e "Total RAM (/proc/meminfo)\t\t: "$(grep MemTotal /proc/meminfo|awk '{print $2/1024}') "MiB OR" $(grep MemTotal /proc/meminfo|awk '{print $2/1024/1024}') "GiB"
-echo -e "Error Detecting Method \t\t\t: "$(grep -w "Error Detecting Method" /tmp/mem.out|awk -F: '{print $2}')
-echo -e "Error Correcting Capabilities \t\t: "$(grep -w -m1 "Error Correcting Capabilities" /tmp/mem.out|awk -F: '{print $2}')
-echo -e "No. Of Memory Module(s) Found\t\t: "$(grep -w "Installed Size" /tmp/mem.out|grep -vc "Not Installed")
+echo -e "Error Detecting Method \t\t\t: "$(echo "$DMEMOUT"|grep -w "Error Detecting Method"|awk -F: '{print $2}'|sed 's/ //')
+echo -e "Error Correcting Capabilities \t\t: "$(echo "$DMEMOUT"|grep -w -m1 "Error Correcting Capabilities"|awk -F: '{print $2}')
+echo -e "No. Of Memory Module(s) Found\t\t: "$(echo "$DMEMOUT"|grep -w "Installed Size"|grep -vc "Not Installed")
 
-echo -e "\n\t  Memory Module(s) Detected \t\t\t" 
-echo -e "\t ----------------------------------" 
-grep "Installed Size" /tmp/mem.out|grep -v "Not"|awk -F: '{print "\t" $2}'
-echo -e "\n\t\t Hardware Specification Of Each Memory Module(s) " 
-echo -e "\t\t $D" 
+echo -e "\n\t  Memory Module(s) Detected \t\t\t"
+echo -e "\t ----------------------------------"
+echo "$DMEMOUT"|grep "Installed Size"|grep -v "Not"|awk -F: '{print "\t" $2}'
+echo -e "\n\t\t Hardware Specification Of Each Memory Module(s) "
+echo -e "\t\t$D"
 
-grep -E '[[:blank:]]Size: [0-9]+' /tmp/memory-device.out -A11|egrep -v "Set|Tag"|sed -e 's/^\s*//'|awk -F: '{print $1}' > /tmp/m1.out
-grep -E '[[:blank:]]Size: [0-9]+' /tmp/memory-device.out -A11|egrep -v "Set|Tag"|awk -F: '{print $2}'|sed  -e 's/^\s*//' > /tmp/m2.out
-pr -t -m -w 50 -S:\  /tmp/m1.out /tmp/m2.out |sed -e 's/^/\t\t/g' 
-rm -rf /tmp/{mem.out,memory-device.out,m1.out,m2.out}
+COL1=$(echo "$PHYMEM"|grep -E '[[:blank:]]Size: [0-9]+' -A11|egrep -v "Set|Tag"|sed -e 's/^\s*//'|awk -F: '{print $1}')
+COL2=$(echo "$PHYMEM"|grep -E '[[:blank:]]Size: [0-9]+' -A11|egrep -v "Set|Tag"|awk -F: '{print ":"$2}'|sed  -e 's/^\s*//')
+paste  <(echo "$COL1") <(echo "$COL2") -d '-'|column -t -s-|sed -e 's/^/\t\t/g'
 }
 
 #-------Fetch PCI device details--------#
 pci_fun()
 {
-echo -e "\n\t\t PCI Controller(s) Found \t\t\t" 
-echo -e "\t $S" 
-lspci | grep controller|awk -F: '{print $2}'|sed -e 's/^....//'|awk '{ printf "%-10s\n", $1}' > /tmp/n1.txt
-lspci | grep controller|awk -F: '{print ":"$3}'|sed -e 's/^\s*//' -e '/^$/d' -e 's/^/\t\t\t/g' > /tmp/n2.txt
-paste -d" " /tmp/n1.txt /tmp/n2.txt|sort -u 
-rm -rf /tmp/{n1.txt,n2.txt}
+echo -e "\n\t\t PCI Controller(s) Found \t\t\t"
+echo -e "\t $S"
+COL1=$(lspci | grep controller|awk -F: '{print $2}'|sed -e 's/^....//'|awk '{ printf "%-10s\n", $1}')
+COL2=$(lspci | grep controller|awk -F: '{print ":"$3}'|sed -e 's/^\s*//' -e '/^$/d' -e 's/^/\t\t\t/g')
+paste  <(echo "$COL1") <(echo "$COL2") -d '='|column -t -s=|sort -u
 }
 
 #-------Fetch hard drive/disk (storage) details--------#
@@ -262,7 +256,7 @@ fi
 net_fun()
 {
 ANET=$(ip a|grep ^[0-9]|egrep -v "lo|virbr|vlan|sit|vnet|pan"|grep -v DOWN|awk '{print $2}'|sed 's/://g')
-[ $(ls -A /proc/net/bonding/ 2>/dev/null) ] && SLAVEI=$(cat /proc/net/bonding/bond*|grep "Slave Interface"|awk '{print $3}') || SLAVEI=""
+[[ $(ls -A /proc/net/bonding/ 2>/dev/null) ]] && SLAVEI=$(cat /proc/net/bonding/bond*|grep "Slave Interface"|awk '{print $3}') || SLAVEI=""
 
 echo -e "\n\t\t Network Hardware Info"  
 echo -e "\t $S"  
@@ -292,7 +286,7 @@ then
   done
   
   echo "$ANET"|egrep "bond|team" &> /dev/null && {
-  echo -e "\t  Network Bonding Config Details"
+  echo -e "\t  Details Of Network Bonding Interface(s)"
   echo -e "\t $D"
   for BNET in $(ls /proc/net/bonding/*);do
    DT=$(cat $BNET)
@@ -355,25 +349,25 @@ echo -e "( 0-90% = OK/HEALTHY, 90-95% = WARNING, 95-100% = CRITICAL )"
 echo -e "$D$D"
 echo -e "Mounted File System[s] Utilization (Percentage Used):\n" 
 
-echo "$FS_USAGE"|awk '{print $1 " "$7}' > /tmp/s1.out
-echo "$FS_USAGE"|awk '{print $6}'|sed -e 's/%//g' > /tmp/s2.out
-> /tmp/s3.out
+COL1=$(echo "$FS_USAGE"|awk '{print $1 " "$7}')
+COL2=$(echo "$FS_USAGE"|awk '{print $6}'|sed -e 's/%//g')
 
-for i in $(cat /tmp/s2.out);
+for i in $(echo "$COL2")
 do
 {
-  if [ $i -ge 95 ];
+  if [ $i -ge 95 ]
   then
-    echo -e $i"% $CCOLOR" >> /tmp/s3.out;
-  elif [[ $i -ge 90 && $i -lt 95 ]];
+    COL3="$(echo -e $i"% $CCOLOR\n$COL3")"
+  elif [[ $i -ge 90 && $i -lt 95 ]]
   then
-    echo -e $i"% $WCOLOR" >> /tmp/s3.out;
+    COL3="$(echo -e $i"% $WCOLOR\n$COL3")"
   else
-    echo -e $i"% $GCOLOR" >> /tmp/s3.out;
+    COL3="$(echo -e $i"% $GCOLOR\n$COL3")"
   fi
 }
 done
-paste -d"\t" /tmp/s1.out /tmp/s3.out|column -t
+COL3=$(echo "$COL3"|sort -k1n)
+paste  <(echo "$COL1") <(echo "$COL3") -d' '|column -t
 
 #--------Check for any zombie processes--------#
 echo -e "\n\nChecking For Zombie Processes"
@@ -400,30 +394,30 @@ echo -e "( 0-90% = OK/HEALTHY, 90-95% = WARNING, 95-100% = CRITICAL )"
 echo -e "$D$D"
 echo -e "INode Utilization (Percentage Used):\n"
 
-echo "$IUSAGE"|awk '{print $1" "$7}' > /tmp/s1.out
-echo "$IUSAGE"|awk '{print $6}'|sed -e 's/%//g' > /tmp/s2.out
-> /tmp/s3.out
+COL11=$(echo "$IUSAGE"|awk '{print $1" "$7}')
+COL22=$(echo "$IUSAGE"|awk '{print $6}'|sed -e 's/%//g')
 
-for i in $(cat /tmp/s2.out);
+for i in $(echo "$COL22")
 do
-  if [[ $i = *[[:digit:]]* ]];
+  if [[ $i = *[[:digit:]]* ]]
   then
   {
-  if [ $i -ge 95 ];
+  if [ $i -ge 95 ]
   then
-    echo -e $i"% $CCOLOR" >> /tmp/s3.out;
-  elif [[ $i -ge 90 && $i -lt 95 ]];
+    COL33="$(echo -e $i"% $CCOLOR\n$COL33")"
+  elif [[ $i -ge 90 && $i -lt 95 ]]
   then
-    echo -e $i"% $WCOLOR" >> /tmp/s3.out;
+    COL33="$(echo -e $i"% $WCOLOR\n$COL33")"
   else
-    echo -e $i"% $GCOLOR" >> /tmp/s3.out;
+    COL33="$(echo -e $i"% $GCOLOR\n$COL33")"
   fi
   }
   else
-    echo -e $i"% (Inode Percentage details not available)" >> /tmp/s3.out
+    COL33="$(echo -e $i"% (Inode Percentage details not available)\n$COL33")"
   fi
 done
-paste -d"\t" /tmp/s1.out /tmp/s3.out|column -t
+COL33=$(echo "$COL33"|sort -k1n)
+paste  <(echo "$COL11") <(echo "$COL33") -d' '|column -t
 
 #--------Check for SWAP Utilization--------#
 echo -e "\n\nChecking SWAP Details"

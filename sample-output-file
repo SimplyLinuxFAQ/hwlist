@@ -1,167 +1,141 @@
 ***********************************************************************************************************
-<>------------<> Welcome to hwlist script which fetches hardware details from your system. <>------------<>
-<>------------<> This is the output produced by the script when ran with "--all" or when   <>------------<>
-<>------------<> dumped using "--dump" option.                                             <>------------<>
+<>------------<> Welcome to hwlist tool which fetches hardware details from your system.   <>------------<>
+<>------------<> This is the output produced by the tool when ran with "--all" or when     <>------------<>
+<>------------<> dumped using "--dump" option. For help run the command with "--help".     <>------------<>
 ***********************************************************************************************************
 
-		 Operating System Details
-	 ************************************
-Hostname				 : ansible-host.example.com
-Operating System			 : Red Hat Enterprise Linux Server release 6.8 (Santiago)
-Kernel Version				 : 2.6.32-696.3.2.el6.x86_64
-OS Architecture				 : 64 Bit OS
-System Uptime 				 : up by 4 minutes
-Current System Date & Time 		 : Sun 25 Jun 2017 05:01:09 AM EDT
+                 Operating System Details
+         ************************************
+Hostname                                 : localhost
+Operating System                         : Red Hat Enterprise Linux Server release 7.3 (Maipo)
+Kernel Version                           : 3.10.0-514.el7.x86_64
+OS Architecture                          : 64 Bit OS
+System Uptime                            : up by 3:38 hours
+Current System Date & Time               : Mon 06 Nov 2017 02:47:43 PM IST
 
-		 System Hardware Details
-	 ************************************
-Product Name 				 : VMware Virtual Platform
-Manufacturer 				 : VMware, Inc.
-System Serial Number 			 : VMware-56 4d 65 f1 ef bb ab 16-3a eb 64 8a 12 c4 1c 5a
-System Version 				 : None
+                 System Hardware Details
+         ************************************
+Product Name                             : VMware Virtual Platform
+Manufacturer                             : VMware, Inc.
+System Serial Number                     : VMware-56 4d 5a 24 ca db b0 59-30 ce ba 98 19 c6 ca 3c
+System Version                           : None
 
-		 System Motherboard Details
-	 ************************************
-Manufacturer 				 : Intel Corporation
-Product Name 				 : 440BX Desktop Reference Platform
-Version 				 : None
-Serial Number 				 : None
+                 System Motherboard Details
+         ************************************
+Manufacturer                             : Intel Corporation
+Product Name                             : 440BX Desktop Reference Platform
+Version                                  : None
+Serial Number                            : None
 
-		 System BIOS Details
-	 ************************************
-BIOS Vendor 				 : Phoenix Technologies LTD
-BIOS Version 				 : 6.00
-BIOS Release Date 			 : 05/20/2014
+                 System BIOS Details
+         ************************************
+BIOS Vendor                              : Phoenix Technologies LTD
+BIOS Version                             : 6.00
+BIOS Release Date                        : 05/20/2014
 
-		System Memory Details (RAM)
-	 ************************************
-Total RAM (/proc/meminfo)		: 1862.58 MB OR 1.81893 GB
-Error Detecting Method 			:  None
-Error Correcting Capabilities 		: 
-No. Of Memory Module(s) Found		: 1
+                System Memory Details (RAM)
+         ************************************
+Total RAM (/proc/meminfo)               : 1823.5 MiB OR 1.78077 GiB
+Error Detecting Method                  : None
+Error Correcting Capabilities           :
+No. Of Memory Module(s) Found           : 1
 
-	  Memory Module(s) Detected 			
-	 ----------------------------------
-	 2048 MB (Single-bank Connection)
+          Memory Module(s) Detected
+         ----------------------------------
+         2048 MB (Single-bank Connection)
 
-		 Hardware Specification Of Each Memory Module(s) 
-		 -------------------------------------
-		Size			: 2048 MB
-		Form Factor		: DIMM
-		Locator			: RAM slot #0
-		Bank Locator		: RAM slot #0
-		Type			: DRAM
-		Type Detail		: EDO
-		Speed			: Unknown
-		Manufacturer		: Not Specified
-		Serial Number		: Not Specified
-		Part Number		: Not Specified
+                 Hardware Specification Of Each Memory Module(s)
+                -------------------------------------
+                Size           : 2048 MB
+                Form Factor    : DIMM
+                Locator        : RAM slot #0
+                Bank Locator   : RAM slot #0
+                Type           : DRAM
+                Type Detail    : EDO
+                Speed          : Unknown
+                Manufacturer   : Not Specified
+                Serial Number  : Not Specified
+                Part Number    : Not Specified
 
-		System Processor Details (CPU)
-	 ****************************************
-Manufacturer				: GenuineIntel
-Model Name				: Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
-CPU Family				: 6
-CPU Stepping				: 4
-No. Of Processor(s)			: 1
-No. of Core(s) per processor		: 1
+                System Processor Details (CPU)
+         ****************************************
+Manufacturer                            : GenuineIntel
+Model Name                              : Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
+CPU Family                              : 6
+CPU Stepping                            : 4
+No. Of Processor(s)                     : 1
+No. of Core(s) per processor            : 1
 
-	Details Of Each Processor[s] (Based On dmidecode)		
-	 -------------------------------------
-	Socket Designation	: CPU socket #0
-	Type			: Central Processor
-	Family			: Unknown
-	Version			: Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
-	Voltage			: 3.3 V
-	Max Speed		: 30000 MHz
-	Current Speed		: 2200 MHz
-	Serial Number		: Not Specified
-	Asset Tag		: Not Specified
-	Part Number		: Not Specified
+         Details Of Each Processor[s] (Based On dmidecode)
+        -------------------------------------
+        Socket Designation      : CPU socket #0
+        Type                    : Central Processor
+        Family                  : Unknown
+        Version                 : Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
+        Voltage                 : 3.3 V
+        Max Speed               : 30000 MHz
+        Current Speed           : 2200 MHz
+        Serial Number           : Not Specified
+        Asset Tag               : Not Specified
+        Part Number             : Not Specified
 
-		 Storage Device Details 			
-	 ************************************
+                 Storage Device Details
+         ************************************
 --------------------------------------------------------------------------
-Device type 		 Logical Name 			 Size
+Device type              Logical Name                    Size
 --------------------------------------------------------------------------
-Disk			/dev/sda			21.5GB
-Disk			/dev/sdb			1073MB
+Disk                    /dev/sda                        12.9GB
 
+                 Details Of Each Hard Drive(s) (local) Found
+        --------------------------------------------------------------------------
+                         Disk : sda
+        --------------------------------------------------------------------------
+         Disk Model                      : VMware Virtual S
+         Disk Vendor                     : VMware,
+         Disk Serial Number              :
+         Drive Firmware Version          :
+         Device Path                     : pci-0000:00:10.0-scsi-0:0:0:0 -> ../../sda
 
-		 Details Of Each Hard Drive(s) (local) Found
-	--------------------------------------------------------------------------
-			 Disk : sda
-	--------------------------------------------------------------------------
-	 Disk Model 			 : VMware Virtual S
-	 Disk Vendor 			 : VMware,
-	 Disk Serial Number 		 :
-	 Drive Firmware Version 	 :
-	 Device Path 			 : pci-0000:00:10.0-scsi-0:0:0:0 -> ../../sda
-	--------------------------------------------------------------------------
-			 Disk : sdb
-	--------------------------------------------------------------------------
-	 Disk Model 			 : VMware Virtual S
-	 Disk Vendor 			 : VMware,
-	 Disk Serial Number 		 :
-	 Drive Firmware Version 	 :
-	 Device Path 			 : pci-0000:00:10.0-scsi-0:0:1:0 -> ../../sdb
+                 PCI Controller(s) Found
+         ************************************
+Ethernet                        : Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
+Multimedia                      : Ensoniq ES1371/ES1373 / Creative Labs CT2518 (rev 02)
+SATA                            : VMware SATA AHCI controller
+SCSI                            : LSI Logic / Symbios Logic 53c1030 PCI-X Fusion-MPT Dual Ultra320 SCSI (rev 01)
+USB                             : VMware USB1.1 UHCI Controller
+USB                             : VMware USB2 EHCI Controller
+VGA                             : VMware SVGA II Adapter
 
+                 Network Hardware Info
+         ************************************
+Ethernet Controller Name                : Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
+Total Network Interface(s)              : 1
+Active Network Interface(s)             : 1
 
-		 PCI Controller(s) Found 			
-	 ************************************
-Ethernet   			: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
-Multimedia 			: Ensoniq ES1371 / Creative Labs CT2518/ES1373 (rev 02)
-SATA       			: VMware SATA AHCI controller
-SCSI       			: LSI Logic / Symbios Logic 53c1030 PCI-X Fusion-MPT Dual Ultra320 SCSI (rev 01)
-USB        			: VMware USB1.1 UHCI Controller
-USB        			: VMware USB2 EHCI Controller
-VGA        			: VMware SVGA II Adapter
-
-		 Network Hardware Info
-	 ************************************
-Ethernet Controller Name 		: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
-Total Network Interface(s)		: 10
-Active Network Interface(s)		: 2
-
-	 Details Of Active Network Interface(s) Found
-	 -------------------------------------
-	 Interface Name 		 : eth0
-	 IP Address (primary) 		 : 192.168.10.100
-	 Hardware Address 		 : 00:0c:29:c4:1c:5a
-	 Driver Module Name 		 : e1000
-	 Driver Version 		 : 7.3.21-k8-NAPI
-	 Firmware Version 		 :
-	 Speed 				 : 1000Mb/s
-	 Duplex Mode 			 : Full
-
-	 Interface Name 		 : eth1
-	 IP Address (primary) 		 : 192.168.10.110
-	 Hardware Address 		 : 00:0c:29:c4:1c:b4
-	 Driver Module Name 		 : e1000
-	 Driver Version 		 : 7.3.21-k8-NAPI
-	 Firmware Version 		 :
-	 Speed 				 : 1000Mb/s
-	 Duplex Mode 			 : Full
+          Details Of Active Standalone Network Interface(s) Found
+         -------------------------------------
+         Interface Name                  : ens33
+         IP Address (primary)            : 172.18.1.23
+         Hardware Address                : xx:xx:xx:xx:xx:xx
+         Driver Module Name              : e1000
+         Driver Version                  : 7.3.21-k8-NAPI
+         Firmware Version                :
+         Speed                           : 1000Mb/s
+         Duplex Mode                     : full
 
 ************************************
-	System Health Status
+        System Health Status
 ************************************
 
 Checking For Read-only File System[s]
 -------------------------------------
-.....No read-only file system[s] found. 
+.....No read-only file system[s] found.
 
 
 Checking For Currently Mounted File System[s]
 --------------------------------------------------------------------------
-/dev/mapper/cryptdevice    on  /forcryptdevice  type  ext4  (rw)
-/dev/mapper/datavg-datalv  on  /data            type  ext4  (rw)
-/dev/mapper/extra-extralv  on  /var/log         type  ext4  (rw)
-/dev/mapper/vg1-homelv     on  /home            type  ext4  (rw)
-/dev/mapper/vg1-rootlv     on  /                type  ext4  (rw)
-/dev/mapper/vg1-tmplv      on  /tmp             type  ext4  (rw)
-/dev/mapper/vg1-varlv      on  /var             type  ext4  (rw)
-/dev/sda1                  on  /boot            type  ext4  (rw)
+/dev/mapper/rhel-root  on  /      type  xfs  (rw,relatime,seclabel,attr2,inode64,noquota)
+/dev/sda2              on  /boot  type  xfs  (rw,relatime,seclabel,attr2,inode64,noquota)
 
 
 Checking For Disk Usage On Mounted File System[s]
@@ -170,14 +144,8 @@ Checking For Disk Usage On Mounted File System[s]
 --------------------------------------------------------------------------
 Mounted File System[s] Utilization (Percentage Used):
 
-/dev/mapper/cryptdevice    /forcryptdevice  1%      ------  OK/HEALTHY  
-/dev/mapper/vg1-homelv     /home            1%      ------  OK/HEALTHY  
-/dev/mapper/extra-extralv  /var/log         3%      ------  OK/HEALTHY  
-/dev/mapper/vg1-tmplv      /tmp             7%      ------  OK/HEALTHY  
-/dev/mapper/datavg-datalv  /data            8%      ------  OK/HEALTHY  
-/dev/mapper/vg1-varlv      /var             12%     ------  OK/HEALTHY  
-/dev/sda1                  /boot            17%     ------  OK/HEALTHY  
-/dev/mapper/vg1-rootlv     /                91%     ------  WARNING     
+/dev/mapper/rhel-root  /      11%     ------  OK/HEALTHY
+/dev/sda2              /boot  14%     ------  OK/HEALTHY
 
 
 Checking For Zombie Processes
@@ -191,20 +159,14 @@ Checking For INode Usage
 --------------------------------------------------------------------------
 INode Utilization (Percentage Used):
 
-/dev/mapper/cryptdevice    /forcryptdevice  1%      ------  OK/HEALTHY  
-/dev/mapper/datavg-datalv  /data            1%      ------  OK/HEALTHY  
-/dev/mapper/extra-extralv  /var/log         1%      ------  OK/HEALTHY  
-/dev/mapper/vg1-homelv     /home            1%      ------  OK/HEALTHY  
-/dev/sda1                  /boot            1%      ------  OK/HEALTHY  
-/dev/mapper/vg1-varlv      /var             6%      ------  OK/HEALTHY  
-/dev/mapper/vg1-tmplv      /tmp             9%      ------  OK/HEALTHY  
-/dev/mapper/vg1-rootlv     /                29%     ------  OK/HEALTHY  
+/dev/mapper/rhel-root  /      1%     ------  OK/HEALTHY
+/dev/sda2              /boot  1%     ------  OK/HEALTHY
 
 
 Checking SWAP Details
 -------------------------------------
-Total Swap Memory in MB : 2000, in GB : 1.95312
-Swap Free Memory in MB : 2000, in GB : 1.95312
+Total Swap Memory in MiB : 1228, in GiB : 1.19921
+Swap Free Memory in MiB : 1228, in GiB : 1.19921
 
 
 Checking For Processor Utilization
@@ -212,41 +174,39 @@ Checking For Processor Utilization
 
 Current Processor Utilization Summary :
 
-05:01:11 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest   %idle
-05:01:11 AM  all    8.07    0.00   11.50   15.50    0.04    0.09    0.00    0.00   64.79
+02:47:44 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+02:47:44 PM  all    0.11    0.00    0.20    0.14    0.00    0.01    0.00    0.00    0.00   99.55
 
 
 Checking For Load Average
 -------------------------------------
-Current Load Average : 0.31, 0.49, 0.24
+Current Load Average : 0.04, 0.06, 0.05
 
 
 Most Recent 3 Reboot Events
 --------------------------------------------------------------------------
-reboot   system boot  2.6.32-696.3.2.e Sun Jun 25 04:57 - 05:01  (00:03)    
-reboot   system boot  2.6.32-696.3.2.e Wed Jun 21 02:27 - 05:01 (4+02:34)   
-reboot   system boot  2.6.32-696.3.2.e Tue Jun 20 02:06 - 05:01 (5+02:54)   
+reboot   system boot  3.10.0-514.el7.x Fri Oct 27 15:46 - 14:47 (9+23:01)
+reboot   system boot  3.10.0-514.el7.x Fri Oct 27 13:28 - 14:47 (10+01:18)
 
 
 Most Recent 3 Shutdown Events
 --------------------------------------------------------------------------
-shutdown system down  2.6.32-696.3.2.e Tue Jun 20 02:06 - 02:06  (00:00)    
-shutdown system down  2.6.32-642.6.2.e Tue Jun 20 01:50 - 01:50  (00:00)    
+No shutdown events are recorded.
 
 
 Top 5 Memory Resource Hog Processes
 --------------------------------------------------------------------------
 %MEM %CPU    PID   PPID USER     STAT COMMAND
 
- 1.6  2.6   4061   4060 root     S<s+ /usr/bin/X :0 -auth /root/.serverauth.4044
+ 1.4  0.0    743      1 root     Ssl  /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid
 
- 1.4  2.2   4212      1 root     S    /usr/lib/vmware-tools/sbin64/vmtoolsd -n vmusr --blockFd 3
+ 0.8  0.0   3273    757 root     S    /sbin/dhclient -d -q -sf /usr/libexec/nm-dhcp-helper -pf /var/run/dhclient-ens33.pid -lf /var/lib/NetworkManager/dhclient-b4e239ba-f04e-4e18-a0d3-fff57df287cc-ens33.lease -cf /var/lib/NetworkManager/dhclient-ens33.conf ens33
 
- 1.4  0.0   1974      1 root     SLsl /sbin/dmeventd
+ 0.8  0.0   1084      1 root     Ssl  /usr/bin/python -Es /usr/sbin/tuned -l -P
 
- 1.0  0.5   4201   4135 root     S    nautilus
+ 0.6  0.0    703      1 polkitd  Ssl  /usr/lib/polkit-1/polkitd --no-debug
 
- 1.0  0.1   4239   4135 root     S    python /usr/share/system-config-printer/applet.py
+ 0.4  0.0    757      1 root     Ssl  /usr/sbin/NetworkManager --no-daemon
 
 
 
@@ -254,19 +214,20 @@ Top 5 CPU Resource Hog Processes
 --------------------------------------------------------------------------
 %CPU %MEM    PID   PPID USER     STAT COMMAND
 
- 2.6  1.6   4061   4060 root     S<s+ /usr/bin/X :0 -auth /root/.serverauth.4044
+ 3.0  0.1   3464   3353 root     S+   /bin/bash /usr/bin/hwlist --all
 
- 2.5  0.0   4578   4526 root     S+   /bin/bash ./hwlist.sh --all
+ 0.3  0.2   3349   1280 root     Ss   sshd: root@pts/0
 
- 2.2  1.4   4212      1 root     S    /usr/lib/vmware-tools/sbin64/vmtoolsd -n vmusr --blockFd 3
+ 0.2  0.3    708      1 root     Ssl  /usr/bin/vmtoolsd
 
- 1.6  0.2   4414      1 root     S<sl /usr/bin/pulseaudio --start
+ 0.1  0.2   3325   1280 root     Ss   sshd: root@notty
 
- 0.7  0.0   3234      1 root     Ss   crond
+ 0.1  0.0   2408      2 root     S    [kworker/0:0]
 
-NOTE:- If any of the above fields are marked as "blank" or "NONE" or "UNKNOWN" or "Not Available" or "Not Specified" that
-means either there is no value present in the system for these fields, otherwise that value may not be available.
+NOTE:- If any of the above fields are marked as "blank" or "NONE" or "UNKNOWN" or "Not Available" or "Not Specified"
+that means either there is no value present in the system for these fields, otherwise that value may not be available,
+or suppressed since there was an error in fetching details.
 
-		 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		 <>--------<> Powered By : http://simplylinuxfaq.blogspot.in <>--------<>
-		 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                 <>--------<> Powered By : http://simplylinuxfaq.blogspot.in <>--------<>
+                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

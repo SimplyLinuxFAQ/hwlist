@@ -1,10 +1,10 @@
 ............................How To Find Out Hardware Information In A Linux System..........................
 
-"How To Get/View Hardware Details/Information In Linux"...... How to find all hardware device details in a linux system....???? Here is the solution: "hwlist.sh" script.
+Using command "hwlist".................
 
-This script has been tested to run successfully on Linux variants such as RHEL 7/6/5, SLES 12/11, Mint16, Ubuntu 16/14, BOSS 6(Debian) etc. running on 64/32 bit architectures. It may work on other variants as well, however, not tested. These tests were run on virtual machines. This is a small, light weight script which makes use of native Linux utilities to get the required details and doesn't need much space."
+This command (hwlist) has been tested to run successfully on Linux variants such as RHEL 7/6, SLES 12/11, Mint16, Ubuntu 16/14, BOSS 6(Debian) etc. running on 64/32 bit architectures. It may work on other variants as well, however, not tested. These tests were run on virtual machines.  This is a small, light weight command which makes use of native Linux utilities to get the required details and doesn't need.
 
-*********   Updated on 25-Jun-2017
+All you need to do is install 'hwlist-2.0-1.noarch.rpm' package on your system and then run the 'hwlist' command.
 
 Further details : http://simplylinuxfaq.blogspot.in/p/how-to-find-hardware-details-in-linux.html
 
